@@ -1,2 +1,5 @@
 # Default ignored files
 /workspace.xml
+/compiler.xml
+/encodings.xml
+/misc.xml

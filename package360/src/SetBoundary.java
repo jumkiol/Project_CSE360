@@ -1,37 +1,39 @@
 class SetBoundary {
 
-    private static int lowerBound;
-    private static int higherBound;
+    private static float lowerBound;
+    private static float higherBound;
     private static SetBoundary boundaryObject;
 
-    private SetBoundary(int low, int high) {
+    private SetBoundary(float low, float high) {
         lowerBound = low;
         higherBound = high;
     }
 
-    static void updateBoundaries(int low, int high) {
+    static void updateBoundaries(float low, float high) {
         if (boundaryObject == null) {
             boundaryObject = new SetBoundary(low, high);
         } else {
             SetBoundary.setLowerBound(low);
             SetBoundary.setHigherBound(high);
         }
+
+        MainPage.updateReport("Set Bounds to: " + low + ", " + high + "\n");
     }
 
-    static int getLowerBound() {
+    static float getLowerBound() {
         return lowerBound;
     }
 
 
-    private static void setLowerBound(int lowerBound) {
+    private static void setLowerBound(float lowerBound) {
         SetBoundary.lowerBound = lowerBound;
     }
 
-    static int getHigherBound() {
+    static float getHigherBound() {
         return higherBound;
     }
 
-    private static void setHigherBound(int higherBound) {
+    private static void setHigherBound(float higherBound) {
         SetBoundary.higherBound = higherBound;
     }
 }

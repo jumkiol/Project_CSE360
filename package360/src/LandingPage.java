@@ -7,10 +7,9 @@ public class LandingPage extends JFrame {
 
     private static boolean errorFlag = false;
 
-
     private LandingPage() {
-        //set default bounds 0, 9999
-        SetBoundary.updateBoundaries(0, 9999);
+        //set default bounds 0, 100
+        SetBoundary.updateBoundaries(0, 100);
         initUI();
     }
 
@@ -30,7 +29,7 @@ public class LandingPage extends JFrame {
         JTextField tfLower = new JTextField(50);
         lowerBound.setLabelFor(tfLower);
         setLayout(null);
-        tfLower.setText(Integer.toString(SetBoundary.getLowerBound()));
+        tfLower.setText(Float.toString(SetBoundary.getLowerBound()));
         add(lowerBound);
         add(tfLower);
         lowerBound.setBounds(20, 100, 120, 30);
@@ -39,7 +38,7 @@ public class LandingPage extends JFrame {
         JLabel upperBound = new JLabel("Upper bound");
         JTextField tfUpper = new JTextField(50);
         upperBound.setLabelFor(tfUpper);
-        tfUpper.setText(Integer.toString(SetBoundary.getHigherBound()));
+        tfUpper.setText(Float.toString(SetBoundary.getHigherBound()));
         add(upperBound);
         add(tfUpper);
         upperBound.setBounds(320, 100, 120, 30);
@@ -65,8 +64,8 @@ public class LandingPage extends JFrame {
             if (!tfLower.getText().isEmpty() && !tfUpper.getText().isEmpty()) {
 
                 try {
-                    int low = Integer.parseInt(tfLower.getText());
-                    int high = Integer.parseInt(tfUpper.getText());
+                    float low = Float.parseFloat(tfLower.getText());
+                    float high = Float.parseFloat(tfUpper.getText());
                     SetBoundary.updateBoundaries(low, high);
                     MainPage.boundaryFlag = true;
                     boundSet.setVisible(true);
@@ -86,7 +85,7 @@ public class LandingPage extends JFrame {
 
 
         //browse button
-        JButton browseButton = new JButton("load a file");
+        JButton browseButton = new JButton("Load a file");
         add(browseButton);
         browseButton.setBounds(20, 200, 100, 30);
         browseButton.addActionListener(e -> {
@@ -110,8 +109,9 @@ public class LandingPage extends JFrame {
                             JOptionPane.ERROR_MESSAGE);
                 }
 
-                if (!errorFlag && returnValue == JFileChooser.APPROVE_OPTION) {
+                if (jfc.getSelectedFile().exists() && returnValue == JFileChooser.APPROVE_OPTION) {
                     try {
+                        MainPage.boundaryFlag = true;
                         new MainPage(jfc.getSelectedFile());
                         //setEnabled(false);
                     } catch (Exception ex) {

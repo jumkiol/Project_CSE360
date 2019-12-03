@@ -16,15 +16,15 @@ class DistributionGraph extends JPanel {
         InitUI();
     }
 
+    //Graph needs to resize to fit panel
     private void InitUI() {
-
-        List<Integer> fileData = MainPage.getFileData();
+        List<Float> fileData = MainPage.getFileData();
 
         // Calculate minimum and maximum value of dataset:
-        int max1 = Integer.MIN_VALUE;
-        int min1 = Integer.MAX_VALUE;
+        float max1 = Integer.MIN_VALUE;
+        float min1 = Integer.MAX_VALUE;
 
-        for (Integer i : fileData) {
+        for (Float i : fileData) {
             if (max1 < i) {
                 max1 = i;
             }
@@ -36,10 +36,10 @@ class DistributionGraph extends JPanel {
         int first = 0, second = 0, third = 0, fourth = 0, fifth = 0,
                 sixth = 0, seventh = 0, eighth = 0, ninth = 0, tenth = 0;
 
-        int sum1 = 0, sum2 = 0, sum3 = 0, sum4 = 0, sum5 = 0, sum6 = 0,
+        float sum1 = 0, sum2 = 0, sum3 = 0, sum4 = 0, sum5 = 0, sum6 = 0,
                 sum7 = 0, sum8 = 0, sum9 = 0, sum10 = 0;
 
-        for (Integer i : fileData) {
+        for (Float i : fileData) {
             if (i <= (min1 + max1) * 0.1) {
                 sum1 = sum1 + i;
                 first += 1;
@@ -75,16 +75,56 @@ class DistributionGraph extends JPanel {
 
         DefaultCategoryDataset dataSet1 = MainPage.getDistributionDataset();
 
-        dataSet1.addValue(first, "", "0-10 % avg " + (Integer) (sum1 / first));
-        dataSet1.addValue(second, "", "11-20 % avg " + (Integer) (sum2 / second));
-        dataSet1.addValue(third, "", "21-30 % avg " + (Integer) (sum3 / third));
-        dataSet1.addValue(fourth, "", "31-40 % avg " + (Integer) (sum4 / fourth));
-        dataSet1.addValue(fifth, "", "41-50 % avg " + (Integer) (sum5 / fifth));
-        dataSet1.addValue(sixth, "", "51-60 % avg " + (Integer) (sum6 / sixth));
-        dataSet1.addValue(seventh, "", "61-70 % avg " + (Integer) (sum7 / seventh));
-        dataSet1.addValue(eighth, "", "71-80 % avg " + (Integer) (sum8 / eighth));
-        dataSet1.addValue(ninth, "", "81-90 % avg " + (Integer) (sum9 / ninth));
-        dataSet1.addValue(tenth, "", "91-100 % avg " + (Integer) (sum10 / tenth));
+        //Need to check for dividing by 0, not every category may be filled
+        if(first != 0)
+            dataSet1.addValue(first, "", "0-10 % avg " + String.format("%.2f", sum1 / first));
+        else
+            dataSet1.addValue(first, "", "0-10 % avg " + 0);
+
+        if(second != 0)
+            dataSet1.addValue(second, "", "11-20 % avg " + String.format("%.2f", sum2 / second));
+        else
+            dataSet1.addValue(second, "", "11-20 % avg " + 0);
+
+        if(third != 0)
+            dataSet1.addValue(third, "", "21-30 % avg " + String.format("%.2f", sum3 / third));
+        else
+            dataSet1.addValue(third, "", "21-30 % avg " + 0);
+
+        if(fourth != 0)
+            dataSet1.addValue(fourth, "", "31-40 % avg " + String.format("%.2f", sum4 / fourth));
+        else
+            dataSet1.addValue(fourth, "", "31-40 % avg " + 0);
+
+        if(fifth != 0)
+            dataSet1.addValue(fifth, "", "41-50 % avg " + String.format("%.2f", sum5 / fifth));
+        else
+            dataSet1.addValue(fifth, "", "41-50 % avg " + 0);
+
+        if(sixth != 0)
+                dataSet1.addValue(sixth, "", "51-60 % avg " + String.format("%.2f", sum6 / sixth));
+        else
+            dataSet1.addValue(sixth, "", "51-60 % avg " + 0);
+
+        if(seventh != 0)
+            dataSet1.addValue(seventh, "", "61-70 % avg " + String.format("%.2f", sum7 / seventh));
+        else
+            dataSet1.addValue(seventh, "", "61-70 % avg " + 0);
+
+        if(eighth != 0)
+            dataSet1.addValue(eighth, "", "71-80 % avg " + String.format("%.2f", sum8 / eighth));
+        else
+            dataSet1.addValue(eighth, "", "71-80 % avg " + 0);
+
+        if(ninth != 0)
+            dataSet1.addValue(ninth, "", "81-90 % avg " + String.format("%.2f", sum9 / ninth));
+        else
+            dataSet1.addValue(ninth, "", "81-90 % avg " + 0);
+
+        if(tenth != 0)
+            dataSet1.addValue(tenth, "", "91-100 % avg " + String.format("%.2f", sum10 / tenth));
+        else
+            dataSet1.addValue(tenth, "", "91-100 % avg " + 0);
 
         // Created Graph with current data
         JFreeChart graph = ChartFactory.createBarChart(
@@ -104,7 +144,8 @@ class DistributionGraph extends JPanel {
         // Set new dataset
     }
 
+    //Need to change
     void updateGraph() {
-
+        this.InitUI();
     }
 }
